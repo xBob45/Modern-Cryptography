@@ -25,6 +25,7 @@ class DecisionalDiffieHellman():
 
         
         # 2) Now, we'll try every combination of x and y from our pool of available values and check whether the pair yilds the given instance j.
+        is_yes_instance = False
         for x in available_values:
             for y in available_values:
                 a = (self.generator**x) % self.modulo
@@ -32,13 +33,15 @@ class DecisionalDiffieHellman():
                 c = (self.generator**(x*y)) % self.modulo
 
                 if(tuple((a,b,c)) == tuple(self.j_instance)):
-                    print(f"j is yes-instance, certificate is: {tuple((x,y))}")
+                    is_yes_instance = True
+                    print(f"j is yes-instance, certificate is: {tuple((x,y))}.")
                     break
-                # else:
-                #     print(f"j {tuple((a,b,c))} is no-instance")
+        
+        if not is_yes_instance:
+            print(f"j is no-instance.")
 
 
 
 if __name__ == "__main__":
-    obj = DecisionalDiffieHellman(13,7,(5,9,1))
+    obj = DecisionalDiffieHellman(11,6,(9,3,4))
 
